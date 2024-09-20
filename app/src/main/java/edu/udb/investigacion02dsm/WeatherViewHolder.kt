@@ -19,13 +19,6 @@ class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         textViewDescription.text = weatherResponse.weather[0].description
         textViewHumidity.text = "Humidity: ${weatherResponse.main.humidity}%"
         textViewPressure.text = "Pressure: ${weatherResponse.main.pressure} hPa"
-        // Cargar el ícono del clima usando Picasso
-        // Cargar el ícono del clima usando Picasso
-        val iconCode = weatherResponse.weather[0].icon
-        val iconUrl = "https://openweathermap.org/img/wn/$iconCode@2x.png"
 
-        Picasso.get()
-            .load(iconUrl)
-            .into(imageViewWeather)
     }
 }

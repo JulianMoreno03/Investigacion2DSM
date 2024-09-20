@@ -10,6 +10,7 @@ class WeatherAdapter(private val weatherList: MutableList<WeatherResponse>) : Re
 
     class WeatherViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(weatherResponse: WeatherResponse) {
+            //Cargamos los datos
             binding.textViewTemperature.text = "${weatherResponse.main.temp} °C"
             binding.textViewDescription.text = weatherResponse.weather[0].description
             binding.textViewHumidity.text = "Humidity: ${weatherResponse.main.humidity}%"

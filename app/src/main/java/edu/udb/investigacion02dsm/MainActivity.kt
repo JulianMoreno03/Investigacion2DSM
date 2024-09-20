@@ -23,11 +23,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Inflar el layout usando View Binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        // Inicializar el RecyclerView
         initRecyclerView()
 
+        // Configurar el SearchView para buscar ciudades
         binding.svPais.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -42,13 +44,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
+    // Función para inicializar el RecyclerView
     private fun initRecyclerView() {
         weatherAdapter = WeatherAdapter(weatherList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = weatherAdapter
     }
 
+    // Función para configurar Retrofit
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -56,8 +59,11 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
+    // Función para buscar el clima por nombre de ciudad
     private fun searchByName(city: String) {
+        //llave de la api
         val apiKey = "4303a31ee6a45d8b573977a3d38b49be"
+        //realizamos peticion
         getRetrofit().create(ApiService::class.java).getWeather(city, apiKey).enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
                 if (response.isSuccessful) {
